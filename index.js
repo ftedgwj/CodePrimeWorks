@@ -1,14 +1,12 @@
-function firstMissingPositive(nums) {
-  const n = nums.length;
-  for (let i = 0; i < n; i++) {
-    while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] !== nums[i]) {
-      const temp = nums[nums[i] - 1];
-      nums[nums[i] - 1] = nums[i];
-      nums[i] = temp;
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
     }
+    arr[j + 1] = key;
   }
-  for (let i = 0; i < n; i++) {
-    if (nums[i] !== i + 1) return i + 1;
-  }
-  return n + 1;
+  return arr;
 }
