@@ -1,22 +1,28 @@
-function minStack() {
-  this.stack = [];
-  this.minStack = [];
+function reorderList(head) {
+  if (!head || !head.next) return;
+  let slow = head;
+  let fast = head;
+  while (fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  let prev = null;
+  let curr = slow.next;
+  slow.next = null;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  let first = head;
+  let second = prev;
+  while (second) {
+    const nextFirst = first.next;
+    const nextSecond = second.next;
+    first.next = second;
+    second.next = nextFirst;
+    first = nextFirst;
+    second = nextSecond;
+  }
 }
-minStack.prototype.push = function (x) {
-  this.stack.push(x);
-  if (
-    this.minStack.length === 0 ||
-    x <= this.minStack[this.minStack.length - 1]
-  )
-    this.minStack.push(x);
-};
-minStack.prototype.pop = function () {
-  if (this.stack.pop() === this.minStack[this.minStack.length - 1])
-    this.minStack.pop();
-};
-minStack.prototype.top = function () {
-  return this.stack[this.stack.length - 1];
-};
-minStack.prototype.getMin = function () {
-  return this.minStack[this.minStack.length - 1];
-};
