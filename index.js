@@ -1,17 +1,25 @@
-function combinationSum(candidates, target) {
-  const result = [];
-  backtrack(0, [], 0);
-  return result;
-  function backtrack(start, current, sum) {
-    if (sum === target) {
-      result.push([...current]);
-      return;
-    }
-    if (sum > target || start === candidates.length) return;
-    for (let i = start; i < candidates.length; i++) {
-      current.push(candidates[i]);
-      backtrack(i, current, sum + candidates[i]);
-      current.pop();
+function trap(height) {
+  let totalWater = 0;
+  let left = 0;
+  let right = height.length - 1;
+  let maxLeft = 0;
+  let maxRight = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= maxLeft) {
+        maxLeft = height[left];
+      } else {
+        totalWater += maxLeft - height[left];
+      }
+      left++;
+    } else {
+      if (height[right] >= maxRight) {
+        maxRight = height[right];
+      } else {
+        totalWater += maxRight - height[right];
+      }
+      right--;
     }
   }
+  return totalWater;
 }
